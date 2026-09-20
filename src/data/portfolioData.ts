@@ -317,6 +317,18 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
+    category: "Knowledgeable & Interested to Work",
+    badge: "Interested to Work",
+    description: "Solid conceptual foundation, hands-on understanding of framework design, and strongly interested in professional roles",
+    skills: [
+      "Python",
+      "Django",
+      "Flask",
+      "Python REST APIs",
+      "ORM & Database Modeling"
+    ]
+  },
+  {
     category: "Core Strengths",
     skills: [
       "Full Stack Web Development (PHP, JS, Next.js)",
@@ -336,6 +348,9 @@ export const technologiesIWorkWith = [
   { name: "Next.js", category: "Frontend" },
   { name: "React", category: "Frontend" },
   { name: "Vue.js", category: "Frontend" },
+  { name: "Python", category: "Interested to Work" },
+  { name: "Django", category: "Interested to Work" },
+  { name: "Flask", category: "Interested to Work" },
   { name: "CodeIgniter", category: "Backend" },
   { name: "MySQL", category: "Database" },
   { name: "Redis", category: "Cache" },

@@ -37,6 +37,8 @@ export interface Education {
 export interface SkillCategory {
   category: string;
   skills: string[];
+  badge?: string;
+  description?: string;
 }
 
 export interface ContactInfo {

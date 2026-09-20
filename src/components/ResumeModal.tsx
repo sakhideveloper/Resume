@@ -170,6 +170,21 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                   </div>
                 </div>
 
+                {/* Knowledgeable & Interested to Work */}
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 mb-1.5 flex items-center justify-between">
+                    <span>Interested to Work</span>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">Knowledgeable</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {['Python', 'Django', 'Flask'].map(s => (
+                      <span key={s} className="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-700/60 text-[11px] text-emerald-200 font-medium">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Tools */}
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
