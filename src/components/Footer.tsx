@@ -29,8 +29,13 @@ export default function Footer({ onOpenResumeModal }: FooterProps) {
           {/* Brand & Bio */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">
-                SK
+              <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700/80 shrink-0 bg-slate-900">
+                <img
+                  src={contactInfo.avatarUrl || "/profile.jpg"}
+                  alt={contactInfo.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
               <div>
                 <div className="text-white font-bold text-lg">{contactInfo.name}</div>

@@ -56,5 +56,6 @@ export interface ContactInfo {
   github: string;
   githubUrl: string;
   availability: string;
+  avatarUrl?: string;
   summary: string;
 }

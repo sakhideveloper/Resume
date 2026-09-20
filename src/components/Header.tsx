@@ -51,8 +51,13 @@ export default function Header({ onOpenResumeModal, activeSection }: HeaderProps
         <div className="flex items-center justify-between">
           {/* Logo & Name */}
           <a href="#about" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              SK
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-200/90 shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform shrink-0 bg-slate-900">
+              <img
+                src={contactInfo.avatarUrl || "/profile.jpg"}
+                alt={contactInfo.name}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -109,10 +114,10 @@ export default function Header({ onOpenResumeModal, activeSection }: HeaderProps
             <button
               onClick={onOpenResumeModal}
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs lg:text-sm font-medium shadow-xs transition-all active:scale-95"
-              title="View formatted printable CV"
+              title="View full resume and download PDF"
             >
               <FileText className="w-4 h-4 text-blue-400" />
-              <span>Resume / CV</span>
+              <span>Preview & Download CV</span>
             </button>
           </div>
 

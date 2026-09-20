@@ -114,7 +114,7 @@ export default function HeroSection({ onOpenResumeModal }: HeroSectionProps) {
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-medium text-sm sm:text-base transition-all active:scale-[0.98]"
               >
                 <Download className="w-4 h-4 text-blue-600" />
-                <span>Resume / CV</span>
+                <span>Preview & Download CV</span>
               </button>
             </div>
 
@@ -211,18 +211,25 @@ export default function HeroSection({ onOpenResumeModal }: HeroSectionProps) {
               
               {/* Profile Header in Card */}
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-700 via-indigo-600 to-slate-900 flex items-center justify-center text-white font-black text-2xl shadow-md shadow-blue-700/20">
-                  SK
+                <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-blue-600/30 shadow-md shadow-blue-700/15 shrink-0 bg-slate-900">
+                  <img
+                    src={contactInfo.avatarUrl || "/profile.jpg"}
+                    alt={contactInfo.name}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top"
+                  />
+                  <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full shadow-xs" title="Available for work" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg leading-snug">
+                  <h3 className="font-bold text-slate-900 text-lg sm:text-xl leading-snug">
                     {contactInfo.name}
                   </h3>
                   <p className="text-xs text-blue-700 font-semibold">
                     Sr. Full Stack Engineer
                   </p>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Lahore, Punjab, Pakistan
+                  <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-blue-600 shrink-0" />
+                    <span>Lahore, Punjab, Pakistan</span>
                   </p>
                 </div>
               </div>

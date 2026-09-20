@@ -15,6 +15,7 @@ export const contactInfo: ContactInfo = {
   github: "github.com/sakhideveloper",
   githubUrl: "https://github.com/sakhideveloper",
   availability: "Available for Remote Opportunities Worldwide",
+  avatarUrl: "/profile.jpg",
   summary:
     "Results-driven Senior Full Stack Developer with 7+ years of experience in designing, developing and maintaining scalable web applications. Expert in PHP, Laravel, CodeIgniter, Drupal, Next.js, Vue.js and modern web technologies. Strong in API development, third-party integrations, database design, and cloud deployments. Proven ability to deliver high-performance, secure and user-friendly solutions for international clients while working remotely."
 };
