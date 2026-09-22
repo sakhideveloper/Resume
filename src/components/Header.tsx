@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { contactInfo } from '../data/portfolioData';
-import { useAvatar } from '../context/AvatarContext';
 import { 
   FileText, 
   MapPin, 
@@ -22,7 +21,6 @@ interface HeaderProps {
 export default function Header({ onOpenResumeModal, activeSection }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { avatarUrl } = useAvatar();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,13 +51,8 @@ export default function Header({ onOpenResumeModal, activeSection }: HeaderProps
         <div className="flex items-center justify-between">
           {/* Logo & Name */}
           <a href="#about" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-200/90 shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform shrink-0 bg-slate-900">
-              <img
-                src={avatarUrl}
-                alt={contactInfo.name}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-top"
-              />
+            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-extrabold text-sm flex items-center justify-center shadow-sm shadow-blue-500/20 group-hover:bg-blue-700 group-hover:scale-105 transition-all shrink-0">
+              SA
             </div>
             <div>
               <div className="flex items-center gap-2">

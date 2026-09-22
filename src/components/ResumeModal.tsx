@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { contactInfo, experiences, skillCategories, educationHistory, projects } from '../data/portfolioData';
-import { useAvatar } from '../context/AvatarContext';
 import { 
   X, 
   Printer, 
@@ -32,7 +31,6 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [pdfSuccess, setPdfSuccess] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
-  const { avatarUrl } = useAvatar();
 
   // Close on Escape key press
   useEffect(() => {
@@ -282,15 +280,10 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               {/* Left Sidebar Column (35% / 4 cols) */}
               <div className="md:col-span-4 bg-slate-900 text-white p-6 sm:p-7 rounded-2xl print:bg-slate-900 print:text-white space-y-6">
                 
-                {/* Profile Photo with Prominent Framing */}
+                {/* Profile Header */}
                 <div className="flex flex-col items-center text-center pb-2">
-                  <div className="relative w-36 h-36 rounded-2xl overflow-hidden border-4 border-slate-700/80 shadow-2xl shadow-black/50 shrink-0 bg-slate-800">
-                    <img
-                      src={avatarUrl}
-                      alt={contactInfo.name}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-top"
-                    />
+                  <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white font-black text-xl flex items-center justify-center shadow-lg shadow-black/40 border border-slate-700">
+                    SA
                   </div>
 
                   <h1 className="text-xl font-extrabold tracking-tight mt-3 text-white uppercase">

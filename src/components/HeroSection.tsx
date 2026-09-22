@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { contactInfo } from '../data/portfolioData';
-import { useAvatar } from '../context/AvatarContext';
 import { 
   MapPin, 
   Mail, 
@@ -25,7 +24,6 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onOpenResumeModal }: HeroSectionProps) {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
-  const { avatarUrl } = useAvatar();
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -211,36 +209,24 @@ export default function HeroSection({ onOpenResumeModal }: HeroSectionProps) {
             {/* Developer Snapshot Card */}
             <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm space-y-5">
               
-              {/* Profile Header in Card with Prominently Sized Photo */}
-              <div className="flex flex-col items-center text-center space-y-3">
-                <div className="relative group">
-                  <div className="w-44 h-44 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-3 border-blue-600/30 shadow-xl shadow-blue-900/10 bg-slate-900 mx-auto relative">
-                    <img
-                      src={avatarUrl}
-                      alt={contactInfo.name}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-
-                  <span className="absolute bottom-1 right-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500 text-white text-[11px] font-bold shadow-md border-2 border-white" title="Available for Remote Work">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    Available
-                  </span>
-                </div>
-
+              {/* Profile Header in Card */}
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <h3 className="font-bold text-slate-900 text-xl sm:text-2xl leading-snug">
+                  <h3 className="font-bold text-slate-900 text-xl leading-snug">
                     {contactInfo.name}
                   </h3>
                   <p className="text-xs sm:text-sm text-blue-700 font-bold mt-0.5">
                     Sr. Full Stack Engineer
                   </p>
-                  <p className="text-xs text-slate-500 mt-1 flex items-center justify-center gap-1">
+                  <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                     <span>Lahore, Punjab, Pakistan</span>
                   </p>
                 </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200 shrink-0" title="Available for Remote Work">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Available
+                </span>
               </div>
 
               <div className="h-px bg-slate-100"></div>
