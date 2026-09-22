@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { contactInfo, experiences, skillCategories, educationHistory, projects } from '../data/portfolioData';
+import { useAvatar } from '../context/AvatarContext';
 import { 
   X, 
   Printer, 
@@ -31,6 +32,7 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [pdfSuccess, setPdfSuccess] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
+  const { avatarUrl } = useAvatar();
 
   // Close on Escape key press
   useEffect(() => {
@@ -67,34 +69,62 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
       setPdfSuccess(false);
 
       const element = resumeRef.current;
+
+      // Preload images to guarantee rendering in PDF canvas
+      const images = element.getElementsByTagName('img');
+      await Promise.all(
+        Array.from(images).map(img => {
+          if (img.complete) return Promise.resolve(true);
+          return new Promise(resolve => {
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+          });
+        })
+      );
+
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
+        allowTaint: true,
         logging: false,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: 1200,
+        ignoreElements: (el) => el.classList?.contains('no-print'),
+        onclone: (clonedDoc) => {
+          const target = clonedDoc.getElementById('printable-resume-body');
+          if (target) {
+            target.style.width = '1024px';
+            target.style.maxWidth = '1024px';
+            target.style.borderRadius = '0px';
+            target.style.boxShadow = 'none';
+          }
+        }
       });
 
       const imgData = canvas.toDataURL('image/jpeg', 0.98);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: 'a4'
+        format: 'a4',
+        compress: true,
       });
 
-      const imgWidth = 210; // A4 width in mm
+      const pageWidth = 210; // A4 width in mm
       const pageHeight = 297; // A4 height in mm
+      const imgWidth = pageWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
       let heightLeft = imgHeight;
-      let position = 0;
+      let pageIndex = 0;
 
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      while (heightLeft > 2) {
+        if (pageIndex > 0) {
+          pdf.addPage();
+        }
+        const yOffset = -(pageIndex * pageHeight);
+        pdf.addImage(imgData, 'JPEG', 0, yOffset, imgWidth, imgHeight, undefined, 'FAST');
         heightLeft -= pageHeight;
+        pageIndex++;
       }
 
       pdf.save('Sakhawat_Kamran_Senior_Full_Stack_Developer_Resume.pdf');
@@ -235,30 +265,34 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
         
         {/* Document Canvas */}
         <div 
-          ref={resumeRef}
           className={`relative bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300 print:border-none print:shadow-none print:w-full print:max-w-none print:rounded-none ${
             isFullWidth ? 'w-full max-w-6xl' : 'w-full max-w-4xl'
           }`}
         >
           
           {/* Resume Body */}
-          <div className="p-6 sm:p-10 text-slate-800 text-sm leading-normal bg-white">
+          <div 
+            id="printable-resume-body"
+            ref={resumeRef}
+            className="p-6 sm:p-10 text-slate-800 text-sm leading-normal bg-white print:p-0"
+          >
             
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
               
               {/* Left Sidebar Column (35% / 4 cols) */}
               <div className="md:col-span-4 bg-slate-900 text-white p-6 sm:p-7 rounded-2xl print:bg-slate-900 print:text-white space-y-6">
                 
-                {/* Profile Photo / Monogram */}
+                {/* Profile Photo with Prominent Framing */}
                 <div className="flex flex-col items-center text-center pb-2">
-                  <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-slate-700/80 shadow-xl shadow-black/40 shrink-0 bg-slate-800">
+                  <div className="relative w-36 h-36 rounded-2xl overflow-hidden border-4 border-slate-700/80 shadow-2xl shadow-black/50 shrink-0 bg-slate-800">
                     <img
-                      src={contactInfo.avatarUrl || "/profile.jpg"}
+                      src={avatarUrl}
                       alt={contactInfo.name}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover object-top"
                     />
                   </div>
+
                   <h1 className="text-xl font-extrabold tracking-tight mt-3 text-white uppercase">
                     {contactInfo.name}
                   </h1>

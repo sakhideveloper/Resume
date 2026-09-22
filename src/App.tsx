@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import ResumeModal from './components/ResumeModal';
 import { contactInfo } from './data/portfolioData';
 import { MessageSquare, ArrowUp, FileText } from 'lucide-react';
+import { AvatarProvider } from './context/AvatarContext';
 
 export default function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
@@ -41,9 +42,10 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
-      
-      {/* Navigation Header */}
+    <AvatarProvider>
+      <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
+        
+        {/* Navigation Header */}
       <Header 
         onOpenResumeModal={() => setResumeModalOpen(true)} 
         activeSection={activeSection}
@@ -99,5 +101,6 @@ export default function App() {
       </div>
 
     </div>
+    </AvatarProvider>
   );
 }

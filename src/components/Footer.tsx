@@ -1,4 +1,5 @@
 import { contactInfo } from '../data/portfolioData';
+import { useAvatar } from '../context/AvatarContext';
 import { 
   MapPin, 
   Mail, 
@@ -16,6 +17,7 @@ interface FooterProps {
 }
 
 export default function Footer({ onOpenResumeModal }: FooterProps) {
+  const { avatarUrl } = useAvatar();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -31,7 +33,7 @@ export default function Footer({ onOpenResumeModal }: FooterProps) {
             <div className="flex items-center gap-3">
               <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700/80 shrink-0 bg-slate-900">
                 <img
-                  src={contactInfo.avatarUrl || "/profile.jpg"}
+                  src={avatarUrl}
                   alt={contactInfo.name}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover object-top"

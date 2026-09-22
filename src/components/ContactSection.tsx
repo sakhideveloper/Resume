@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { contactInfo } from '../data/portfolioData';
+import { useAvatar } from '../context/AvatarContext';
 import { 
   Mail, 
   Phone, 
@@ -17,6 +18,7 @@ import {
 
 export default function ContactSection() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const { avatarUrl } = useAvatar();
   const [customMessage, setCustomMessage] = useState<string>(
     "Hi Sakhawat, I came across your portfolio and would like to discuss a software development opportunity."
   );
@@ -59,7 +61,7 @@ export default function ContactSection() {
               <div className="flex items-center gap-3">
                 <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-emerald-500/40 shadow-sm shrink-0 bg-slate-800">
                   <img
-                    src={contactInfo.avatarUrl || "/profile.jpg"}
+                    src={avatarUrl}
                     alt={contactInfo.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-top"
